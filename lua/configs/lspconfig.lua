@@ -2,10 +2,24 @@ require("nvchad.configs.lspconfig").defaults()
 
 local vue_language_server = vim.fn.expand(vim.fn.stdpath "data" ..
     "/mason/packages/vue-language-server/node_modules/@vue/language-server")
+local base_on_attach = vim.lsp.config.eslint.on_attach
 local servers = {
     bashls = {},
     clangd = {},
     cssls = {},
+    eslint = {
+        on_attach = function(client, bufnr)
+            if not base_on_attach then
+                return
+            end
+
+            base_on_attach(client, bufnr)
+            vim.api.nvim_create_autocmd("BufWritePre", {
+                buffer = bufnr,
+                command = "LspEslintFixAll",
+            })
+        end,
+    },
     gopls = {},
     html = {},
     jsonls = {},
@@ -42,8 +56,8 @@ local servers = {
 }
 
 for name, opts in pairs(servers) do
-  vim.lsp.config(name, opts)
-  vim.lsp.enable(name)
+    vim.lsp.config(name, opts)
+    vim.lsp.enable(name)
 end
 
 -- https://github.com/naborisk/dotfiles/blob/383041e06c070d78e4d990b662cfa13d35ce0a64/nvim/after/plugin/nvim-lspconfig.lua#L158
