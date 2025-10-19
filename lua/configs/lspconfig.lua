@@ -7,6 +7,7 @@ local servers = {
     bashls = {},
     clangd = {},
     cssls = {},
+    dartls = {},
     eslint = {
         on_attach = function(client, bufnr)
             if not base_on_attach then
@@ -73,12 +74,4 @@ vim.diagnostic.config {
     },
 }
 
--- Show diagnostics text on cursor hold
-local lspGroup = vim.api.nvim_create_augroup("Lsp", { clear = true })
-
--- https://github.com/naborisk/dotfiles/blob/383041e06c070d78e4d990b662cfa13d35ce0a64/nvim/after/plugin/nvim-lspconfig.lua#L169-L172
-vim.api.nvim_create_autocmd("CursorHold", {
-    command = "lua vim.diagnostic.open_float()",
-    group = lspGroup,
-})
 -- read :h vim.lsp.config for changing options of lsp servers

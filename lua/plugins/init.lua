@@ -21,19 +21,20 @@ return {
         opts = {
             ensure_installed = {
                 "c",
-                "lua",
-                "vim",
-                "vimdoc",
-                "markdown",
                 "css",
+                "dart",
+                "go",
                 "html",
                 "javascript",
+                "json",
+                "lua",
+                "markdown",
                 "typescript",
-                "go",
                 "tsx",
+                "vim",
+                "vimdoc",
                 "vue",
                 "xml",
-                "json"
             },
             auto_install = true,
             highlight = {
@@ -48,12 +49,6 @@ return {
                 lint_events = { "BufWrite", "CursorHold" },
             },
         },
-    },
-
-    {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true
     },
 
     {
@@ -76,57 +71,36 @@ return {
     },
 
     {
-        'lewis6991/gitsigns.nvim',
-        config = function()
-            require('gitsigns').setup {
-                signs                        = {
-                    add          = { text = '┃' },
-                    change       = { text = '┃' },
-                    delete       = { text = '_' },
-                    topdelete    = { text = '‾' },
-                    changedelete = { text = '~' },
-                    untracked    = { text = '┆' },
-                },
-                signs_staged                 = {
-                    add          = { text = '┃' },
-                    change       = { text = '┃' },
-                    delete       = { text = '_' },
-                    topdelete    = { text = '‾' },
-                    changedelete = { text = '~' },
-                    untracked    = { text = '┆' },
-                },
-                signs_staged_enable          = true,
-                signcolumn                   = true,  -- Toggle with `:Gitsigns toggle_signs`
-                numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
-                linehl                       = false, -- Toggle with `:Gitsigns toggle_linehl`
-                word_diff                    = false, -- Toggle with `:Gitsigns toggle_word_diff`
-                watch_gitdir                 = {
-                    follow_files = true
-                },
-                auto_attach                  = true,
-                attach_to_untracked          = false,
-                current_line_blame           = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
-                current_line_blame_opts      = {
-                    virt_text = true,
-                    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-                    delay = 1000,
-                    ignore_whitespace = false,
-                    virt_text_priority = 100,
-                    use_focus = true,
-                },
-                current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
-                sign_priority                = 6,
-                update_debounce              = 100,
-                status_formatter             = nil,   -- Use default
-                max_file_length              = 40000, -- Disable if file is longer than this (in lines)
-                preview_config               = {
-                    -- Options passed to nvim_open_win
-                    style = 'minimal',
-                    relative = 'cursor',
-                    row = 0,
-                    col = 1
-                },
-            }
-        end
-    }
+        'tpope/vim-fugitive',
+        cmd = { 'Git', 'G' }
+    },
+
+    {
+        "kdheepak/lazygit.nvim",
+        lazy = true,
+        cmd = {
+            "LazyGit",
+            "LazyGitConfig",
+            "LazyGitCurrentFile",
+            "LazyGitFilter",
+            "LazyGitFilterCurrentFile",
+        },
+        -- optional for floating window border decoration
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
+
+    -- Smear cursor effect. If you use ghostty as terminal,
+    -- ensure the custom shader is disabled to avoid conflict smear effect
+    -- {
+    --     "sphamba/smear-cursor.nvim",
+    --     opts = {
+    --         smear_between_buffers = true,
+    --         smear_between_neighbor_lines = true,
+    --         scroll_buffer_space = true,
+    --         legacy_computing_symbols_support = false,
+    --         smear_insert_mode = true,
+    --     },
+    -- }
 }
