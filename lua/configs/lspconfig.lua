@@ -7,7 +7,6 @@ local servers = {
     bashls = {},
     clangd = {},
     cssls = {},
-    dartls = {},
     eslint = {
         on_attach = function(client, bufnr)
             if not base_on_attach then
